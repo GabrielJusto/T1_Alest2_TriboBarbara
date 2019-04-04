@@ -100,10 +100,18 @@ public class Tree
     {
         double maior = 0;
         LinkedList<Node> folhas = getFolhas();
+        /*
+        for( int i=0; i<folhas.size(); i++ )
+            System.out.println(folhas.get(i).nome + " " + folhas.get(i).terras);
+            */
+
+
+
         for(Node n: folhas)
         {
             double terras = n.terras;
             terras = calculaTerraRec(n, terras);
+            System.out.println( n.nome + " " + terras );
             if(terras > maior)
                 maior = terras;
         }

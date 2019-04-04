@@ -19,16 +19,15 @@ public class App
 	    Tree arvore = new Tree();
 		//ArrayList<Barbaro> barbaros = new ArrayList<>(100);
 		HashMap<String, Barbaro> barbaros = new HashMap<>();
-		HashSet<String> pais = new HashSet<>();
-		HashSet<String> filhos = new HashSet<>();
+		HashSet<String> pais = new HashSet<>();//guarda o nome de todos os barbaros que possuem filhos
+		HashSet<String> filhos = new HashSet<>();//guarda o nome de todos os barbaros que possuem pai
 
 		try
 		{
 		//leitura do arquivo de entrada
-	     BufferedReader br = new BufferedReader(new FileReader("casoJB4a"));
+	     BufferedReader br = new BufferedReader(new FileReader("casos/casoJB10a"));
 	     String linha = br.readLine();
 	    
-	    System.out.println(linha);
 	    //armazena o numero de terras do primeiro barbaro
 	    terraInicial = Double.parseDouble(linha);
 
@@ -50,7 +49,6 @@ public class App
 	     }
 		
 	     br.close();
-	     System.out.println(arvore.calculaTerra());
 	  }catch(IOException ioe)
 	  {
 	     ioe.printStackTrace();
@@ -70,20 +68,20 @@ public class App
 	     //adiciona o primeiro barbaro na árvore
 	     arvore.add(raiz, terraInicial, null);
 
-	     //para todo filho f presente em "filhos" se barbaros.get(f).getPai() está na árvore
-	     //então f é adicionado na árvore
+	     //para todo finho f presente em filhos se o pai de f está na árvore entao f é adicionado na árvore
 	     boolean inseriuTodos = false;
 	     int tamanhoFilhos = filhos.size();
+	     System.out.println("li o arquivo");
 	     while( !inseriuTodos )
 	     {
 		     for( String f : filhos )
 		     {
-		     	if( arvore.contains(barbaros.get(f).getPai()) )
+		     	if( arvore.contains(barbaros.get(f).getPai()) && !arvore.contains(barbaros.get(f).getNome()))
 		     	{
 		     		Barbaro aux = barbaros.get(f);
 		     		arvore.add(aux.getNome(), aux.getTerras(), aux.getPai());
 		     		tamanhoFilhos--;
-		     		System.out.println("adicionou: " + aux.getNome() + "\n" + tamanhoFilhos);
+		     		//System.out.println("adicionou: " + aux.getNome() + "\n" + tamanhoFilhos);
 		     		if( tamanhoFilhos == 0 )
 		     		{
 		     			inseriuTodos = true;
@@ -93,6 +91,7 @@ public class App
 		     }
 		 }
 
-     System.out.println(arvore.calculaTerra());
+     //System.out.println(arvore.calculaTerra());
 	}
 }
+
