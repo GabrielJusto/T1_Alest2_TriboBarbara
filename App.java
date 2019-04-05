@@ -72,6 +72,7 @@ public class App
 	     boolean inseriuTodos = false;
 	     int tamanhoFilhos = filhos.size();
 	     System.out.println("li o arquivo");
+	     Itarator<String> it = new Itarator<>(); //implementar esse laço com iterador
 	     while( !inseriuTodos )
 	     {
 		     for( String f : filhos )
@@ -80,6 +81,7 @@ public class App
 		     	{
 		     		Barbaro aux = barbaros.get(f);
 		     		arvore.add(aux.getNome(), aux.getTerras(), aux.getPai());
+
 		     		tamanhoFilhos--;
 		     		//System.out.println("adicionou: " + aux.getNome() + "\n" + tamanhoFilhos);
 		     		if( tamanhoFilhos == 0 )
