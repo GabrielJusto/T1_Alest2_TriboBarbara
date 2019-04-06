@@ -92,9 +92,12 @@ public class Tree
     private double calculaTerraRec(Node n, double terras)
     {
         if(n.isRoot())
-            return n.terras;
+            return terras + n.terras/n.getQuantFilhos();
         else
+        {
+            //System.out.println(terras);
             return calculaTerraRec(n.pai, (terras + (n.pai.terras/n.pai.getQuantFilhos()))); 
+        }
     }
     public double calculaTerra()
     {
