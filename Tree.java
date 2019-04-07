@@ -57,6 +57,32 @@ public class Tree
 	}
 
 
+    public void add(String raiz, MeuHashMap map, HashMap<String, Barbaro> barbaros)
+    {
+        String pai = raiz;
+        LinkedList<String> miniBarbaros;
+        String miniBarbaro;
+        miniBarbaros = map.get(pai);
+        if(miniBarbaros != null)
+        {
+            for(String s : miniBarbaros)
+            {
+                //System.out.println("adicionei: " + s);
+                add(s, barbaros.get(s).getTerras(), pai);
+            }
+            Node aux = searchNodeRef(pai, this.raiz);
+            //System.out.println(pai);
+            int qntFilhos = aux.getQuantFilhos();
+            for(int i=0; i<qntFilhos; i++)
+            {
+                add(aux.getFilho(i).nome, map, barbaros);
+            }
+        }
+        
+        
+    }
+
+
 	public boolean add(String nome, double terras, String pai) 
 	{
         Node n = new Node(nome, terras);
@@ -114,7 +140,7 @@ public class Tree
         {
             double terras = n.terras;
             terras = calculaTerraRec(n, terras);
-            System.out.println( n.nome + " " + terras );
+            //System.out.println( n.nome + " " + terras );
             if(terras > maior)
                 maior = terras;
         }

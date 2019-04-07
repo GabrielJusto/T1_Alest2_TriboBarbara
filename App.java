@@ -11,6 +11,7 @@ public class App
 {
 	public static void main(String[] args) 
 	{
+		double inicio = System.currentTimeMillis();
 	
 		int terras;
 		String nome;
@@ -20,13 +21,14 @@ public class App
 	    Tree arvore = new Tree();
 		//ArrayList<Barbaro> barbaros = new ArrayList<>(100);
 		HashMap<String, Barbaro> barbaros = new HashMap<>();
+		MeuHashMap nodos = new MeuHashMap();
 		HashSet<String> pais = new HashSet<>();//guarda o nome de todos os barbaros que possuem filhos
 		HashSet<String> filhos = new HashSet<>();//guarda o nome de todos os barbaros que possuem pai
 
 		try
 		{
 		//leitura do arquivo de entrada
-	     BufferedReader br = new BufferedReader(new FileReader("casos/casoJB12a"));
+	     BufferedReader br = new BufferedReader(new FileReader("casos/casoJB14b"));
 	     String linha = br.readLine();
 	    
 	    //armazena o numero de terras do primeiro barbaro
@@ -45,6 +47,7 @@ public class App
 	        filhos.add(nome);
 
 			barbaros.put(nome, new Barbaro(nome, pai, terras));
+			nodos.put(pai, nome);
 			//System.out.println("barbaro: " + barbaros.get(count).getNome());
 			count ++;
 	     }
@@ -59,43 +62,26 @@ public class App
 
 
 	  //Encontra o primeiro barbaro da árvore
-	     String raiz = ""; 
-	     for(String p : pais)
-	     {
-	     	if(!filhos.contains(p))
-	     		raiz = p;
-	     }
+	    String raiz = ""; 
+	    for(String p : pais)
+	    {
+	    	if(!filhos.contains(p))
+	    		raiz = p;
+	    }
 
-	     //adiciona o primeiro barbaro na árvore
-	     arvore.add(raiz, terraInicial, null);
+	    //adiciona o primeiro barbaro na árvore
+	    arvore.add(raiz, terraInicial, null);
+	    arvore.add(raiz, nodos, barbaros);
 
-	     //para todo finho f presente em filhos se o pai de f está na árvore entao f é adicionado na árvore
-	     boolean inseriuTodos = false;
-	     int tamanhoFilhos = filhos.size();
-	     Iterator<String> it = filhos.iterator(); 
-/*
-	     while( !inseriuTodos )
-	     {
-		    for( String f : filhos )
-		    {
-		     	if( arvore.contains(barbaros.get(f).getPai()) && !arvore.contains(barbaros.get(f).getNome()))
-		     	{
-		     		Barbaro aux = barbaros.get(f);
-		     		arvore.add(aux.getNome(), aux.getTerras(), aux.getPai());
-		     		System.out.println("adicionou: " + aux.getNome() + "\n Tamanho: " + filhos.size());
 
-		     		tamanhoFilhos--;
-		     		//System.out.println("adicionou: " + aux.getNome() + "\n" + tamanhoFilhos);
-		     		if( tamanhoFilhos == 0 )
-		     		{
-		     			inseriuTodos = true;
-		     			break;
-		     		}
-		     	}
-		   	}
-		}
 
-		*/
+	    /*
+	    //para todo finho f presente em filhos se o pai de f está na árvore entao f é adicionado na árvore
+	    boolean inseriuTodos = false;
+	    int tamanhoFilhos = filhos.size();
+	    Iterator<String> it = filhos.iterator(); 
+
+	    
 		while (!inseriuTodos)
 		{
 			it = filhos.iterator();
@@ -106,6 +92,19 @@ public class App
 				{
 					Barbaro aux = barbaros.get(f);
 		     		arvore.add(aux.getNome(), aux.getTerras(), aux.getPai());
+
+		     		//adicina na árvore todos os filhos de "aux"
+		     		Iterator<String> itPai = filhos.iterator();
+		     		while(itPai.hasNext())
+		     		{
+		     			String filhoDoFilho = itPai.next();
+		     			Barbaro b = barbaros.get(filhoDoFilho);
+		     			if(b.getPai().equals(aux.getNome()))
+		     			{
+		     				arvore.add(b.getNome(), b.getTerras(), b.getPai());
+		     				itPai.remove();
+		     			}
+		     		}
 
 		     		//System.out.println("adicionou: " + aux.getNome() + "\n Tamanho: " + filhos.size() );
 		     		it.remove();
@@ -118,9 +117,13 @@ public class App
 				}
 			} 
 		}
+		*/
 		
 
      System.out.println(arvore.calculaTerra());
+     double fim = System.currentTimeMillis();
+     double total = (fim - inicio)/1000;
+     System.out.println("\n Tempo: " + total);
 	}
 }
 
