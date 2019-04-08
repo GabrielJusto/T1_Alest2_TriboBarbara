@@ -24,11 +24,10 @@ public class App
 		MeuHashMap nodos = new MeuHashMap();
 		HashSet<String> pais = new HashSet<>();//guarda o nome de todos os barbaros que possuem filhos
 		HashSet<String> filhos = new HashSet<>();//guarda o nome de todos os barbaros que possuem pai
-
 		try
 		{
 		//leitura do arquivo de entrada
-	     BufferedReader br = new BufferedReader(new FileReader("casos/casoJB14b"));
+	     BufferedReader br = new BufferedReader(new FileReader("casos/casoJB14a"));
 	     String linha = br.readLine();
 	    
 	    //armazena o numero de terras do primeiro barbaro
@@ -68,8 +67,21 @@ public class App
 	    	if(!filhos.contains(p))
 	    		raiz = p;
 	    }
+	    barbaros.put(raiz, new Barbaro(raiz, null, terraInicial));
+	    LinkedList<Barbaro> folhas = new LinkedList<>();
+	    folhas = nodos.calcula(raiz, barbaros, folhas);
 
+	    Barbaro maior = new Barbaro("","",0);
+	    for(Barbaro b : folhas)
+	    {
+	    	if(b.getTerras()>maior.getTerras())
+	    		maior = b;
+	    }
+	    
+
+	    System.out.println("barbaro: " + maior.getNome() + "\n terras: " + maior.getTerras());
 	    //adiciona o primeiro barbaro na árvore
+	    /*
 	    arvore.add(raiz, terraInicial, null);
 	    arvore.add(raiz, nodos, barbaros);
 
@@ -120,7 +132,7 @@ public class App
 		*/
 		
 
-     System.out.println(arvore.calculaTerra());
+     //System.out.println(arvore.calculaTerra());
      double fim = System.currentTimeMillis();
      double total = (fim - inicio)/1000;
      System.out.println("\n Tempo: " + total);

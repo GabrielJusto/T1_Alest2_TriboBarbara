@@ -3,9 +3,9 @@ public class Barbaro
 
     private String nome;
     private String pai;
-    int terras;
+    double terras;
 
-    public Barbaro(String nome, String pai, int terras)
+    public Barbaro(String nome, String pai, double terras)
     {
         this.nome = nome;
         this.pai = pai;
@@ -14,6 +14,6 @@ public class Barbaro
 
     public String getNome(){return nome;}
     public String getPai(){return pai;}
-    public int getTerras(){return terras;}
+    public double getTerras(){return terras;}
 
 }

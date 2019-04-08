@@ -33,4 +33,32 @@ public class MeuHashMap
 		return dados.get(chave);
 	}
 
+
+
+	public LinkedList<Barbaro> calcula(String pai, HashMap<String, Barbaro> barbaros, LinkedList<Barbaro> folhas)
+	{
+		Barbaro maior = new Barbaro("","",0);
+		LinkedList<String> filhos = dados.get(pai);
+		if(filhos == null)
+		{
+			folhas.add(barbaros.get(pai));
+		}
+		else
+		{
+			for(String s : filhos)
+			{
+				double terrasFilho = barbaros.get(s).getTerras();
+				double terrasPai = barbaros.get(pai).getTerras();
+				Barbaro aux = new Barbaro(s, pai, terrasFilho + (terrasPai/filhos.size()));
+				if(aux.getTerras() > maior.getTerras())
+					maior = aux;
+				barbaros.remove(s);
+				barbaros.put(s, aux);
+				calcula(s, barbaros, folhas);
+			}
+		}
+		
+		return folhas;
+	}
+
 }
