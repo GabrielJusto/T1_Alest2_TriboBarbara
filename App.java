@@ -79,7 +79,7 @@ public class App
 	    }
 	    
 
-	    System.out.println("barbaro: " + maior.getNome() + "\n terras: " + maior.getTerras());
+	    
 	    //adiciona o primeiro barbaro na árvore
 	    /*
 	    arvore.add(raiz, terraInicial, null);
@@ -135,7 +135,8 @@ public class App
      //System.out.println(arvore.calculaTerra());
      double fim = System.currentTimeMillis();
      double total = (fim - inicio)/1000;
-     System.out.println("\n Tempo: " + total);
+     System.out.println(maior.getNome() + " " + maior.getTerras() + " " + total);
+     
 	}
 }
 
