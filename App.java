@@ -27,7 +27,7 @@ public class App
 		try
 		{
 		//leitura do arquivo de entrada
-	     BufferedReader br = new BufferedReader(new FileReader("casos/casoJB14a"));
+	     BufferedReader br = new BufferedReader(new FileReader(args[0]));
 	     String linha = br.readLine();
 	    
 	    //armazena o numero de terras do primeiro barbaro
